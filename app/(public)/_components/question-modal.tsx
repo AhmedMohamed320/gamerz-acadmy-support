@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { TiArrowUpThick } from "react-icons/ti";
 import { useDisclosure } from "@nextui-org/modal";
-import { Button } from "@nextui-org/button";
-import { Question } from "@prisma/client";
 import Link from "next/link";
 import { Link as NUI_Link } from "@nextui-org/link";
 import styles from "../questionsTree/QuestionsTree.module.css";
@@ -16,9 +14,14 @@ interface AnswerItem {
     pageId?: string;
 }
 
-interface QuestionNode extends Partial<Question> {
-    children?: QuestionNode[];
+interface QuestionNode {
+    id?: string;
+    title?: string;
+    label?: string;
     answer?: AnswerItem[];
+    children?: QuestionNode[];
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 interface QuestionModalProps {
