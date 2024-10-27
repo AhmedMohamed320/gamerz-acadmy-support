@@ -6,6 +6,7 @@ import { useDisclosure } from "@nextui-org/modal";
 import Link from "next/link";
 import { Link as NUI_Link } from "@nextui-org/link";
 import styles from "../questionsTree/QuestionsTree.module.css";
+import { TbExternalLink } from "react-icons/tb";
 
 interface AnswerItem {
     id: string;
@@ -52,8 +53,10 @@ export default function QuestionModal({
 
     const renderAnswerItems = (answerItems?: AnswerItem[]) =>
         answerItems?.map((item) => (
-            <div key={item.id} className="mb-4">
-                {item.type === "text" && <p>{item.value}</p>}
+            <div key={item.id}>
+                {item.type === "text" && (
+                    <p className="text-3xl">{item.value}</p>
+                )}
                 {item.type === "img" && (
                     <img src={item.value} alt="Answer" className="rounded-lg" />
                 )}
@@ -61,17 +64,19 @@ export default function QuestionModal({
                     <NUI_Link
                         as={Link}
                         isExternal
-                        showAnchorIcon
                         href={`/pages/${item.pageId}`}
                     >
-                        {item.value}
+                        <p className="text-xl">{item.value}</p>
+                        <TbExternalLink className="text-2xl"/>
                     </NUI_Link>
                 )}
             </div>
         ));
 
     return (
-        <>
+        <div className="relative z-10">
+            <img src="/Sayjn.gif" alt="" className="headerImg" />
+            <img src="/image (1).png" alt="" className="headerImg2" />
             <div className={styles.upperDivQuestions}>
                 {[...history, currentNode].map((node, index) => (
                     <div
@@ -91,10 +96,15 @@ export default function QuestionModal({
                         <p className="leading-loose font-medium">
                             {node.title || node.label}
                         </p>
-                        {renderAnswerItems(node.answer)}
-                        {node.children && node.children.length > 0 && (
-                            <hr className="bg-slate-500 w-3/5" />
-                        )}
+                        {node.children &&
+                            node.answer &&
+                            (node.children.length > 0 ||
+                                node.answer.length > 0) && (
+                                <hr className="bg-slate-500 w-3/5" />
+                            )}
+                        <div className="flex flex-col text-center">
+                            {renderAnswerItems(node.answer)}
+                        </div>
                         {node.children && node.children.length > 0 && (
                             <div className="grid grid-cols-2 gap-2 w-full">
                                 {node.children.map((child) => (
@@ -111,6 +121,6 @@ export default function QuestionModal({
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 }

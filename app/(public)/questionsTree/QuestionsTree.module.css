@@ -19,13 +19,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     gap: 2rem;
     background-color: #494545;
     position: absolute;
     opacity: 0.65;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center center; /* لزيادة تأثير التكبير */
+    transform-origin: center center; 
+    font-size: 2.5rem;
 }
 
 .card.active {
@@ -36,7 +37,8 @@
     z-index: 10;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1); /* تكبير الكارت النشط */
+    transform: translate(-50%, -50%) scale(1); 
+    font-size: 2.75rem;
 }
 
 .card:not(.active) {
@@ -88,19 +90,20 @@
     opacity: 0.15;
 }
 
-.card p {
-    font-size: 2.5rem;
-}
-.card.active p {
-    font-size: 3rem;
+.card:not(.active):nth-child(n + 7){
+    top: calc(50% - 20rem);
+    width: 18rem;
+    filter: blur(0.35rem);
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
 }
 
 .card div button {
     background-color: #fff;
-    border-radius: 0.25rem;
+    border-radius: 0.4rem;
     padding: 0.5rem;
-    font-size: 1.5rem;
-    color: #000000;
+    font-size: 1.4rem;
+    color: #1a1a1a;
     transition: 0.15s;
     pointer-events: none;
     cursor: not-allowed;
@@ -108,7 +111,7 @@
 
 .card.active div button {
     padding: 1rem;
-    font-size: 2.25rem;
+    font-size: 2rem;
     pointer-events: all;
     cursor: pointer;
 }
@@ -125,6 +128,23 @@
     transform: translate(-50%, -50%);
     color: var(--color-main);
     position: absolute;
-    font-size: 2.5rem;
+    font-size: 3rem;
     cursor: pointer;
+    animation: glow 1s infinite alternate;
+}
+
+.backHistory:hover {
+    animation: none;
+    text-shadow: 0 0 10px var(--color-main), 0 0 20px var(--color-main), 0 0 30px var(--color-main); /* توهج ثابت */
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px var(--color-main), 0 0 10px var(--color-main), 0 0 15px var(--color-main);
+        opacity: 1;
+    }
+    100% {
+        text-shadow: 0 0 2px var(--color-main), 0 0 5px var(--color-main), 0 0 10px var(--color-main);
+        opacity: 0.7;
+    }
 }
