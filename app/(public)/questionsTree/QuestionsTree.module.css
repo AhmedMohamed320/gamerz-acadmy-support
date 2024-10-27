@@ -1,108 +1,43 @@
 .upperDivQuestions {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-}
-
-.card {
-    border: 1px solid #9d18d64d;
-    padding: 1.5rem;
-    margin-top: 1rem;
-    width: 95%;
-    max-width: 45rem;
-    min-height: 25rem;
-    text-align: center;
-    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    gap: 2rem;
-    background-color: #494545;
-    position: absolute;
-    opacity: 0.65;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center center; 
-    font-size: 2.5rem;
+    justify-content: center; 
+    gap: 2rem; 
+    padding-top: 2rem;
+    position: relative;
+    min-height:450vh; 
+    overflow-y: auto; 
 }
 
-.card.active {
+.card {
+    width: 95%;
+    max-width: 48rem;
+    min-height: 22rem;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid #9d18d64d;
     border-radius: 1.5rem;
-    padding: 2rem;
-    max-width: 50rem;
-    opacity: 1;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1); 
+    background-color: #494545;
     font-size: 2.75rem;
-}
-
-.card:not(.active) {
-    top: calc(50% - 3rem);
-    width: 45rem;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95); /* تصغير طفيف للكروت الأقدم */
-    filter: blur(0.1rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s ease;
+    position: relative;
     opacity: 0.6;
 }
 
-.card:not(.active):nth-child(2) {
-    top: calc(50% - 6rem);
-    width: 40rem;
-    filter: blur(0.15rem);
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0.5;
-}
-
-.card:not(.active):nth-child(3) {
-    top: calc(50% - 9rem);
-    width: 35rem;
-    filter: blur(0.2rem);
-    transform: translate(-50%, -50%) scale(0.85);
-    opacity: 0.4;
-}
-
-.card:not(.active):nth-child(4) {
-    top: calc(50% - 12rem);
-    width: 30rem;
-    filter: blur(0.25rem);
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0.3;
-}
-
-.card:not(.active):nth-child(5) {
-    top: calc(50% - 15rem);
-    width: 25rem;
-    filter: blur(0.3rem);
-    transform: translate(-50%, -50%) scale(0.75);
-    opacity: 0.2;
-}
-
-.card:not(.active):nth-child(6) {
-    top: calc(50% - 18rem);
-    width: 20rem;
-    filter: blur(0.35rem);
-    transform: translate(-50%, -50%) scale(0.7);
-    opacity: 0.15;
-}
-
-.card:not(.active):nth-child(n + 7){
-    top: calc(50% - 20rem);
-    width: 18rem;
-    filter: blur(0.35rem);
-    transform: translate(-50%, -50%) scale(0.7);
-    opacity: 0;
+.card.active{
+    opacity: 1;
 }
 
 .card div button {
     background-color: #fff;
     border-radius: 0.4rem;
-    padding: 0.5rem;
-    font-size: 1.4rem;
+    padding: 1rem;
+    font-size: 2rem;
     color: #1a1a1a;
     transition: 0.15s;
     pointer-events: none;
@@ -110,8 +45,6 @@
 }
 
 .card.active div button {
-    padding: 1rem;
-    font-size: 2rem;
     pointer-events: all;
     cursor: pointer;
 }

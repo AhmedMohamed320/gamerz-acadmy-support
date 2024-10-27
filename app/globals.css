@@ -182,7 +182,7 @@ body {
     font-family: "Cairo", sans-serif;
     direction: rtl;
     height: 100dvh !important;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 a {
@@ -209,7 +209,7 @@ a {
 }
 
 .headerImg {
-    position: absolute;
+    position: fixed;
     z-index: -2;
     left: 0;
     top: 0;
@@ -217,7 +217,7 @@ a {
 }
 
 .headerImg2 {
-    position: absolute;
+    position: fixed;
     z-index: -3;
     right: 0;
     bottom: 0;

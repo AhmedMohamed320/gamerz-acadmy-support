@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TiArrowUpThick } from "react-icons/ti";
 import { useDisclosure } from "@nextui-org/modal";
 import Link from "next/link";
@@ -37,6 +37,8 @@ export default function QuestionModal({
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [currentNode, setCurrentNode] = useState<QuestionNode>(question);
     const [history, setHistory] = useState<QuestionNode[]>([]);
+    const activeCardRef = useRef<HTMLDivElement>(null);
+    const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleChildClick = (child: QuestionNode) => {
         setHistory((prevHistory) => [...prevHistory, currentNode]);
@@ -50,6 +52,19 @@ export default function QuestionModal({
             setHistory((prevHistory) => prevHistory.slice(0, -1));
         }
     };
+
+    const resetScrollToActiveCard = () => {
+        if (activeCardRef.current) {
+            activeCardRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    };
+
+    useEffect(() => {
+        resetScrollToActiveCard();
+    }, [currentNode]);
 
     const renderAnswerItems = (answerItems?: AnswerItem[]) =>
         answerItems?.map((item) => (
@@ -67,7 +82,7 @@ export default function QuestionModal({
                         href={`/pages/${item.pageId}`}
                     >
                         <p className="text-xl">{item.value}</p>
-                        <TbExternalLink className="text-2xl"/>
+                        <TbExternalLink className="text-2xl" />
                     </NUI_Link>
                 )}
             </div>
@@ -81,6 +96,7 @@ export default function QuestionModal({
                 {[...history, currentNode].map((node, index) => (
                     <div
                         key={node.id}
+                        ref={index === history.length ? activeCardRef : null}
                         className={`${styles.card} ${
                             index === history.length ? styles.active : ""
                         }`}
@@ -96,26 +112,30 @@ export default function QuestionModal({
                         <p className="leading-loose font-medium">
                             {node.title || node.label}
                         </p>
-                        {node.children &&
-                            node.answer &&
-                            (node.children.length > 0 ||
-                                node.answer.length > 0) && (
-                                <hr className="bg-slate-500 w-3/5" />
-                            )}
                         <div className="flex flex-col text-center">
                             {renderAnswerItems(node.answer)}
                         </div>
                         {node.children && node.children.length > 0 && (
-                            <div className="grid grid-cols-2 gap-2 w-full">
-                                {node.children.map((child) => (
-                                    <button
-                                        key={child.id}
-                                        onClick={() => handleChildClick(child)}
-                                        className="col-span-1"
-                                    >
-                                        {child.label}
-                                    </button>
-                                ))}
+                            <div className="w-full">
+                                {node.children &&
+                                    node.answer &&
+                                    (node.children.length > 0 ||
+                                        node.answer.length > 0) && (
+                                        <hr className="bg-zinc-700 w-3/5 mb-6 mx-auto" />
+                                    )}
+                                <div className="grid grid-cols-2 gap-2">
+                                    {node.children.map((child) => (
+                                        <button
+                                            key={child.id}
+                                            onClick={() =>
+                                                handleChildClick(child)
+                                            }
+                                            className="col-span-1"
+                                        >
+                                            {child.label}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         )}
                     </div>

@@ -16,7 +16,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="absolute top-0 left-0 w-full z-50 bg-transparent flex justify-center">
+                <div className="absolute top-0 left-0 w-full z-50 bg-black shadow-lg flex justify-center ">
                     <Link href="/">
                         <img
                             src="/gamers-academy.png"

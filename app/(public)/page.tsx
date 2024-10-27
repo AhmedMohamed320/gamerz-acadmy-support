@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
     return (
         <main>
-            <header className=" relative z-10 ">
+            <header className=" relative z-10 overflow-hidden">
                 <img src="/Sayjn.gif" alt="" className="headerImg" />
                 <img src="/image (1).png" alt="" className="headerImg2" />
                 <div className="grid grid-cols-6 relative z-10 mainContainer uppderHero h-screen">
