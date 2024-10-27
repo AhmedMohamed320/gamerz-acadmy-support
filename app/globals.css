@@ -181,7 +181,7 @@ body {
     color: #fff;
     font-family: "Cairo", sans-serif;
     direction: rtl;
-    height: 100dvh !important;
+    height: 100svh !important;
     overflow-y: auto;
 }
 
