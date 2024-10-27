@@ -257,7 +257,8 @@ a {
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
+        gap: 1rem;
     }
 
     .uppderHero > div:nth-of-type(2) {

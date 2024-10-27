@@ -15,10 +15,10 @@ const Page = async ({ params: { id } }: PageProps) => {
     );
   }
   return (
-    <div className="p-5">
-      <h1 className="text-2xl mb-5 font-semibold">{page.title}</h1>
+    <div className="p-5 flex text-center items-center flex-col gap-8 mt-40 overflow-y-auto h-screen">
+      <h1 className="text-4xl mb-5 font-bold w-11/12">{page.title}</h1>
       <div
-        className="prose"
+        className="prose flex flex-col gap-8 max-w-6xl p-10"
         dangerouslySetInnerHTML={{ __html: page.content }}
       />
     </div>
