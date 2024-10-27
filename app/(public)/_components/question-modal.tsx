@@ -37,20 +37,32 @@ export default function QuestionModal({
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [currentNode, setCurrentNode] = useState<QuestionNode>(question);
     const [history, setHistory] = useState<QuestionNode[]>([]);
+    const [selectedOptions, setSelectedOptions] = useState<{
+        [key: string]: string;
+    }>({});
     const activeCardRef = useRef<HTMLDivElement>(null);
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handleChildClick = (child: QuestionNode) => {
+    const handleChildClick = (child: QuestionNode, questionId: string) => {
+        setSelectedOptions((prev) => ({
+            ...prev,
+            [questionId]: child.id || "",
+        }));
         setHistory((prevHistory) => [...prevHistory, currentNode]);
         setCurrentNode(child);
     };
 
     const handleBack = () => {
         if (history.length > 0) {
-            const previousNode = history[history.length - 1];
-            setCurrentNode(previousNode);
-            setHistory((prevHistory) => prevHistory.slice(0, -1));
+            setSelectedOptions((prev) => {
+                const newOptions = { ...prev };
+                delete newOptions[currentNode.id!];
+                return newOptions;
+            });
         }
+        const previousNode = history[history.length - 1];
+        setCurrentNode(previousNode);
+        setHistory((prevHistory) => prevHistory.slice(0, -1));
     };
 
     const resetScrollToActiveCard = () => {
@@ -128,9 +140,17 @@ export default function QuestionModal({
                                         <button
                                             key={child.id}
                                             onClick={() =>
-                                                handleChildClick(child)
+                                                handleChildClick(
+                                                    child,
+                                                    node.id!
+                                                )
                                             }
-                                            className="col-span-1"
+                                            className={`col-span-1 ${
+                                                selectedOptions[node.id!] ===
+                                                child.id
+                                                    ? styles.selectedOption
+                                                    : ""
+                                            }`}
                                         >
                                             {child.label}
                                         </button>
