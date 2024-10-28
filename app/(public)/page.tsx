@@ -22,7 +22,7 @@ export default function Home() {
                             />
                         </Link>
                     </div>
-                    <div className="col-span-4 flex justify-center items-end relative">
+                    <div className="col-span-4 flex justify-center md:items-end items-center relative">
                         <img
                             src="/hero.png"
                             alt="hero img"
