@@ -166,6 +166,7 @@
 
 :root {
     --color-main: #9e18d6;
+    --color-dark: #111216;
 }
 
 * {
@@ -176,9 +177,7 @@
 
 html,
 body {
-    font-size: 62.5% ;
-    background-color: #000000;
-    color: #fff;
+    font-size: 62.5%;
     font-family: "Cairo", sans-serif;
     direction: rtl;
     height: 100svh !important;
@@ -190,23 +189,11 @@ a {
 }
 
 .mainContainer {
-    width: 85%;
+    width: 95%;
     max-width: 110rem;
     margin: auto;
 }
 
-.circle {
-    position: absolute;
-    z-index: -1;
-    border-radius: 50%;
-    filter: blur(2rem);
-}
-
-.hero {
-    max-height: 90%;
-    max-width: 80rem;
-    margin-left: -10rem;
-}
 
 .headerImg {
     position: fixed;
@@ -216,14 +203,6 @@ a {
     width: 100vw;
 }
 
-.headerImg2 {
-    position: fixed;
-    z-index: -3;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    filter: brightness(0.05);
-}
 
 ::-webkit-scrollbar {
     width: 5px;
@@ -242,33 +221,13 @@ a {
 .uppderHero > div:nth-of-type(2) {
     height: 100vh;
 }
+.wordSpace{
+    word-spacing: 1rem;
+}
 
-
-@media (max-width: 65rem) {
+@media (max-width: 768px) {
     html {
         font-size: 50%;
-    }
-
-    .mainContainer {
-        width: 95%;
-    }
-
-    .uppderHero {
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    .uppderHero > div:nth-of-type(2) {
-        align-items: center;
-        height: fit-content;
-    }
-
-    .hero {
-        margin-left: 0;
-        width: 90%;
     }
 
     .headerImg {

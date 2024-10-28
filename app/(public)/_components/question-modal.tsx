@@ -103,7 +103,6 @@ export default function QuestionModal({
     return (
         <div className="relative z-10">
             <img src="/Sayjn.gif" alt="" className="headerImg" />
-            <img src="/image (1).png" alt="" className="headerImg2" />
             <div className={styles.upperDivQuestions}>
                 {[...history, currentNode].map((node, index) => (
                     <div

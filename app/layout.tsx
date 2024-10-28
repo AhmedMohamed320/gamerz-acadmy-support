@@ -1,7 +1,9 @@
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
+import Nav from "./(public)/_components/nav";
 
 export const metadata: Metadata = {
     title: "support page",
@@ -15,18 +17,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body>
-                <div className="absolute top-0 left-0 w-full z-50 bg-black shadow-lg flex justify-center ">
-                    <Link href="/">
-                        <img
-                            src="/gamers-academy.png"
-                            alt="gamers-academy-logo"
-                            className="m-auto p-5"
-                        />
-                    </Link>
-                </div>
-                <Toaster />
-                {children}
+            <body className="dark:text-custom-light text-custom-dark bg-custom-light dark:bg-custom-dark">
+                <ThemeProvider attribute="class">
+                    <Nav />
+                    <Toaster />
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );
