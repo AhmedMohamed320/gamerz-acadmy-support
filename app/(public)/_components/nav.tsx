@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 export default function Nav() {
     const { theme, setTheme } = useTheme();
@@ -24,9 +25,9 @@ export default function Nav() {
                     onClick={() =>
                         setTheme(theme === "dark" ? "light" : "dark")
                     }
-                    className="p-2 px-4 bg-custom-dark dark:bg-custom-light text-custom-light dark:text-custom-dark rounded-lg absolute left-8 text-2xl"
+                    className="p-2 px-4 bg-custom-dark dark:bg-custom-light text-custom-light dark:text-custom-dark rounded-lg absolute left-10 text-3xl"
                 >
-                    {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
+                    {theme === "dark" ? <MdOutlineLightMode/> : <MdDarkMode />}
                 </button>
             </div>
         </>
