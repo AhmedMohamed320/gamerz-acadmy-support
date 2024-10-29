@@ -1,13 +1,12 @@
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Toaster } from "react-hot-toast";
 import Nav from "./(public)/_components/nav";
 
 export const metadata: Metadata = {
-    title: "support page",
-    description: "",
+    title: "gamerz-academy",
+    description: "gamerz academy support page",
 };
 
 export default function RootLayout({

@@ -7,6 +7,7 @@ import Link from "next/link";
 import styles from "../questionsTree/QuestionsTree.module.css";
 import { TbExternalLink } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
+import { LuCheckCircle } from "react-icons/lu";
 
 interface AnswerItem {
     id: string;
@@ -54,9 +55,17 @@ export default function QuestionModal({
 
     const handleBackToNode = (nodeIndex: number) => {
         const selectedNode = history[nodeIndex];
+        setHistory((prevHistory) => prevHistory.slice(0, nodeIndex));
         setCurrentNode(selectedNode);
-        setHistory(history.slice(0, nodeIndex)); // إزالة العناصر بعد العنصر المحدد
+        setSelectedOptions((prev) => {
+            const newOptions = { ...prev };
+            history.slice(nodeIndex).forEach((node) => {
+                delete newOptions[node.id!];
+            });
+            return newOptions;
+        });
     };
+    
 
     const resetScrollToActiveCard = () => {
         if (activeCardRef.current) {
@@ -82,7 +91,11 @@ export default function QuestionModal({
                 )}
                 {item.type === "link" && (
                     <button>
-                        <a href={`/pages/${item.pageId}`} target="_blank" className="flex items-center gap-3">
+                        <a
+                            href={`/pages/${item.pageId}`}
+                            target="_blank"
+                            className="flex items-center gap-3"
+                        >
                             <p className="text-xl">{item.value}</p>
                             <TbExternalLink className="text-2xl" />
                         </a>
@@ -104,7 +117,7 @@ export default function QuestionModal({
                         }`}
                         onClick={() =>
                             index < history.length && handleBackToNode(index)
-                        } // إضافة هذه السطر
+                        }
                     >
                         {history.length > 0 && index === history.length && (
                             <div
@@ -134,13 +147,19 @@ export default function QuestionModal({
                                                     node.id!
                                                 )
                                             }
-                                            className={`col-span-1 ${
+                                            className={`col-span-1 relative ${
                                                 selectedOptions[node.id!] ===
                                                 child.id
                                                     ? styles.selectedOption
                                                     : ""
                                             }`}
                                         >
+                                            {selectedOptions[node.id!] ===
+                                                child.id && (
+                                                <div className="absolute left-2 top-2 text-white ">
+                                                    <LuCheckCircle className="w-6" />
+                                                </div>
+                                            )}
                                             {child.label}
                                         </button>
                                     ))}

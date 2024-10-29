@@ -32,7 +32,7 @@ export default function Home() {
                             </p>
                             <div
                                 onClick={handleStartClick}
-                                className="text-4xl font-medium flex items-center flex-col gap-2 cursor-pointer"
+                                className="text-3xl font-medium flex flex-col items-center justify-center p-4 px-8 cursor-pointer rounded-lg startButton"
                             >
                                 <p>ابدأ الآن.</p>
                                 <IoIosArrowDown />

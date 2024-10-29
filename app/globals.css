@@ -225,6 +225,12 @@ a {
     word-spacing: 1rem;
 }
 
+.startButton{
+    background-color: var(--color-main);
+    color: #e0e0e0 !important;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
 @media (max-width: 768px) {
     html {
         font-size: 50%;
