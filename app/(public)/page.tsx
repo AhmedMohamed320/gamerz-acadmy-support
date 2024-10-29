@@ -1,24 +1,44 @@
-import Link from "next/link";
+"use client";
+import { IoIosArrowDown } from "react-icons/io";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import LoadingPage from "./_components/loadingPage";
 
 export default function Home() {
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
+
+    const handleStartClick = () => {
+        setLoading(true);
+        setTimeout(() => {
+            router.push("/questionsTree");
+        }, 2200);
+    };
+
     return (
         <main>
-            <header className=" relative z-10 overflow-hidden h-screen">
+            <header className="relative z-10 overflow-hidden h-screen">
                 <img src="/Sayjn.gif" alt="" className="headerImg" />
-                <div className="flex justify-center items-center  z-10 mainContainer uppderHero h-full">
-                    <div className="col-span-2 flex justify-center items-center flex-col gap-12 text-center max-w-full md:max-w-6xl">
-                        <p className="text-8xl font-bold leading-normal wordSpace">
-                            مرحبًا بكم في تجربة الدعم المتميزة!
-                        </p>
-                        <p className="text-4xl text-neutral-500">
-                        جاهزين نساعدك تحل مشكلتك بخطوات بسيطة وسهلة!
-                        </p>
-                        <Link href="/questionsTree">
-                         <p className="text-3xl">
-                            ابدا
-                         </p>
-                        </Link>
-                    </div>
+                <div className="flex justify-center items-center z-10 mainContainer uppderHero h-full">
+                    {loading ? (
+                       <LoadingPage/>
+                    ) : (
+                        <div className="col-span-2 flex justify-center items-center flex-col gap-12 text-center max-w-full md:max-w-6xl">
+                            <p className="text-8xl font-bold leading-normal wordSpace">
+                                مرحبًا بكم في تجربة الدعم المتميزة!
+                            </p>
+                            <p className="text-4xl text-neutral-500 leading-snug">
+                                جاهزين نساعدك تحل مشكلتك بخطوات بسيطة وسهلة!
+                            </p>
+                            <div
+                                onClick={handleStartClick}
+                                className="text-4xl font-medium flex items-center flex-col gap-2 cursor-pointer"
+                            >
+                                <p>ابدأ الآن.</p>
+                                <IoIosArrowDown />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </header>
         </main>

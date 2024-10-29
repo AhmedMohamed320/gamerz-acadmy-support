@@ -3,28 +3,28 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     padding-top: 2rem;
     position: relative;
-    min-height: 350vh;
+    min-height: 300vh;
     overflow-y: auto;
 }
 
 .card {
     width: 95%;
     max-width: 48rem;
-    min-height: 22rem;
+    min-height: 20rem;
     padding: 1rem;
     text-align: center;
     border-radius: 1.5rem;
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     transition: all 0.4s ease;
     position: relative;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .card.active {
@@ -32,14 +32,15 @@
 }
 
 .card div button {
-    background-color: #dfdfdf;
-    border-radius: 0.4rem;
+    border-radius: 0.5rem;
     padding: 1rem;
-    font-size: 2rem;
-    color: #1a1a1a;
+    font-size: 1.75rem;
     transition: 0.15s;
     pointer-events: none;
     cursor: not-allowed;
+    background-color:#1E85F7 ;
+    color: #e4e2e2;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
 }
 
 .card.active div button {

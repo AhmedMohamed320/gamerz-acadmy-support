@@ -4,9 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import { TiArrowUpThick } from "react-icons/ti";
 import { useDisclosure } from "@nextui-org/modal";
 import Link from "next/link";
-import { Link as NUI_Link } from "@nextui-org/link";
 import styles from "../questionsTree/QuestionsTree.module.css";
 import { TbExternalLink } from "react-icons/tb";
+import { IoIosArrowDown } from "react-icons/io";
 
 interface AnswerItem {
     id: string;
@@ -52,17 +52,10 @@ export default function QuestionModal({
         setCurrentNode(child);
     };
 
-    const handleBack = () => {
-        if (history.length > 0) {
-            setSelectedOptions((prev) => {
-                const newOptions = { ...prev };
-                delete newOptions[currentNode.id!];
-                return newOptions;
-            });
-        }
-        const previousNode = history[history.length - 1];
-        setCurrentNode(previousNode);
-        setHistory((prevHistory) => prevHistory.slice(0, -1));
+    const handleBackToNode = (nodeIndex: number) => {
+        const selectedNode = history[nodeIndex];
+        setCurrentNode(selectedNode);
+        setHistory(history.slice(0, nodeIndex)); // إزالة العناصر بعد العنصر المحدد
     };
 
     const resetScrollToActiveCard = () => {
@@ -88,14 +81,12 @@ export default function QuestionModal({
                     <img src={item.value} alt="Answer" className="rounded-lg" />
                 )}
                 {item.type === "link" && (
-                    <NUI_Link
-                        as={Link}
-                        isExternal
-                        href={`/pages/${item.pageId}`}
-                    >
-                        <p className="text-xl">{item.value}</p>
-                        <TbExternalLink className="text-2xl" />
-                    </NUI_Link>
+                    <button>
+                        <a href={`/pages/${item.pageId}`} target="_blank" className="flex items-center gap-3">
+                            <p className="text-xl">{item.value}</p>
+                            <TbExternalLink className="text-2xl" />
+                        </a>
+                    </button>
                 )}
             </div>
         ));
@@ -111,11 +102,16 @@ export default function QuestionModal({
                         className={`${styles.card} ${
                             index === history.length ? styles.active : ""
                         }`}
+                        onClick={() =>
+                            index < history.length && handleBackToNode(index)
+                        } // إضافة هذه السطر
                     >
                         {history.length > 0 && index === history.length && (
                             <div
                                 className={styles.backHistory}
-                                onClick={handleBack}
+                                onClick={() =>
+                                    handleBackToNode(history.length - 1)
+                                }
                             >
                                 <TiArrowUpThick />
                             </div>
@@ -123,17 +119,11 @@ export default function QuestionModal({
                         <p className="leading-loose font-medium">
                             {node.title || node.label}
                         </p>
-                        <div className="flex flex-col text-center">
+                        <div className="flex flex-col text-center gap-4">
                             {renderAnswerItems(node.answer)}
                         </div>
                         {node.children && node.children.length > 0 && (
                             <div className="w-full">
-                                {node.children &&
-                                    node.answer &&
-                                    (node.children.length > 0 ||
-                                        node.answer.length > 0) && (
-                                        <hr className="bg-zinc-700 w-3/5 mb-6 mx-auto" />
-                                    )}
                                 <div className="grid grid-cols-2 gap-2">
                                     {node.children.map((child) => (
                                         <button
@@ -155,6 +145,11 @@ export default function QuestionModal({
                                         </button>
                                     ))}
                                 </div>
+                            </div>
+                        )}
+                        {history.length > 0 && index !== history.length && (
+                            <div className="absolute -bottom-12 mx-auto flex items-center justify-center gap-4 w-full">
+                                <IoIosArrowDown />
                             </div>
                         )}
                     </div>
