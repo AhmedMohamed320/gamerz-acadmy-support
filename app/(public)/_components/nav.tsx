@@ -25,7 +25,7 @@ export default function Nav() {
                     onClick={() =>
                         setTheme(theme === "dark" ? "light" : "dark")
                     }
-                    className="p-2 px-4 bg-custom-dark dark:bg-custom-light text-custom-light dark:text-custom-dark rounded-lg absolute left-10 text-3xl"
+                    className="p-2 flex justify-center items-center bg-custom-dark dark:bg-custom-light text-custom-light dark:text-custom-dark rounded-lg absolute left-6 text-3xl w-12 h-12"
                 >
                     {theme === "dark" ? <MdOutlineLightMode/> : <MdDarkMode />}
                 </button>

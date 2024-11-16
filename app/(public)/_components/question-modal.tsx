@@ -3,10 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import { TiArrowUpThick } from "react-icons/ti";
 import { useDisclosure } from "@nextui-org/modal";
-import Link from "next/link";
 import styles from "../questionsTree/QuestionsTree.module.css";
 import { TbExternalLink } from "react-icons/tb";
-import { IoIosArrowDown } from "react-icons/io";
 import { LuCheckCircle } from "react-icons/lu";
 
 interface AnswerItem {
@@ -164,11 +162,6 @@ export default function QuestionModal({
                                         </button>
                                     ))}
                                 </div>
-                            </div>
-                        )}
-                        {history.length > 0 && index !== history.length && (
-                            <div className="absolute -bottom-12 mx-auto flex items-center justify-center gap-4 w-full">
-                                <IoIosArrowDown />
                             </div>
                         )}
                     </div>

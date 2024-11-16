@@ -12,12 +12,12 @@
 
 .card {
     width: 95%;
-    max-width: 48rem;
-    min-height: 20rem;
+    max-width: 40rem;
+    min-height: 18rem;
     padding: 1rem;
     text-align: center;
     border-radius: 1.5rem;
-    font-size: 2.5rem;
+    font-size: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,10 +25,22 @@
     transition: all 0.5s ease;
     position: relative;
     opacity: 0.5;
+    background: #1E1E1E;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(54, 56, 63, 0.25);
+}
+
+.card:hover{
+    border: 1px solid rgba(124, 125, 128, 0.25);
+
 }
 
 .card.active {
     opacity: 1;
+    max-width: 48rem;
+    min-height: 20rem;
+    font-size: 2.5rem;
 }
 
 .card div button {
@@ -38,7 +50,7 @@
     transition: 0.15s;
     pointer-events: none;
     cursor: not-allowed;
-    background-color:#38b1b1 ;
+    background-color: #38b1b1;
     color: #e4e2e2;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
     transition: 0.3s ease;
@@ -49,7 +61,8 @@
     cursor: pointer;
 }
 
-.card button:hover,.card button.selectedOption {
+.card button:hover,
+.card button.selectedOption {
     background-color: var(--color-main);
     color: #fff;
 }
@@ -69,9 +82,8 @@
 .backHistory:hover {
     animation: none;
     text-shadow: 0 0 10px var(--color-main), 0 0 20px var(--color-main),
-        0 0 30px var(--color-main); 
+        0 0 30px var(--color-main);
 }
-
 
 @keyframes glow {
     0% {
