@@ -79,9 +79,11 @@ export default function QuestionModal({
 
     const renderAnswerItems = (answerItems?: AnswerItem[]) =>
         answerItems?.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="p-4" >
                 {item.type === "text" && (
-                    <p className="text-2xl leading-normal">
+                    <p
+                        className={`leading-normal`}
+                    >
                         {item.value
                             ?.split(/(https?:\/\/[^\s]+)/g)
                             .map((part, index) =>
@@ -95,7 +97,7 @@ export default function QuestionModal({
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            من هنا 
+                                            من هنا
                                         </a>
                                     </div>
                                 ) : (
@@ -147,9 +149,6 @@ export default function QuestionModal({
                                 <TiArrowUpThick />
                             </div>
                         )}
-                        <p className="leading-loose font-medium">
-                            {node.title || node.label}
-                        </p>
                         <div className="flex flex-col text-center gap-4">
                             {renderAnswerItems(node.answer)}
                         </div>
