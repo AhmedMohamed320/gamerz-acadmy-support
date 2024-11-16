@@ -9,9 +9,9 @@ const DashboardPage: NextPage = async ({}: DashboardPageProps) => {
   const questions = await prisma.question.findMany();
   const pages = await prisma.page.findMany();
   return (
-    <>
+    <div>
       <Tabs questions={questions} pages={pages} />
-    </>
+    </div>
   );
 };
 

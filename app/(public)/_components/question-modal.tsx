@@ -63,7 +63,6 @@ export default function QuestionModal({
             return newOptions;
         });
     };
-    
 
     const resetScrollToActiveCard = () => {
         if (activeCardRef.current) {
@@ -82,7 +81,28 @@ export default function QuestionModal({
         answerItems?.map((item) => (
             <div key={item.id}>
                 {item.type === "text" && (
-                    <p className="text-3xl">{item.value}</p>
+                    <p className="text-2xl leading-normal">
+                        {item.value
+                            ?.split(/(https?:\/\/[^\s]+)/g)
+                            .map((part, index) =>
+                                /https?:\/\/[^\s]+/.test(part) ? (
+                                    <div
+                                        key={index}
+                                        className="text-blue-500 underline mx-1"
+                                    >
+                                        <a
+                                            href={part}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            من هنا 
+                                        </a>
+                                    </div>
+                                ) : (
+                                    part
+                                )
+                            )}
+                    </p>
                 )}
                 {item.type === "img" && (
                     <img src={item.value} alt="Answer" className="rounded-lg" />

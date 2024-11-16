@@ -83,7 +83,8 @@ export default function QuestionModal({
         {question_ ? question_.title : "اضافه"}
       </Button>
       <Modal
-        size="5xl"
+        size="full"
+        className="max-w-7xl"
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
