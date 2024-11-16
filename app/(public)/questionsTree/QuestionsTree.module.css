@@ -22,12 +22,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease-in;
     position: relative;
     opacity: 0.5;
     background: #1E1E1E;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(54, 56, 63, 0.25);
 }
 
