@@ -79,7 +79,7 @@ export default function QuestionModal({
 
     const renderAnswerItems = (answerItems?: AnswerItem[]) =>
         answerItems?.map((item) => (
-            <div key={item.id} className="p-4" >
+            <div key={item.id} className="px-6" >
                 {item.type === "text" && (
                     <p
                         className={`leading-normal`}
