@@ -147,7 +147,7 @@ export default function QuestionModal({
                                 <TiArrowUpThick />
                             </div>
                         )}
-                        <p className="leading-loose font-medium text-4xl">
+                        <p className="leading-loose font-medium">
                             {node.title || node.label}
                         </p>
 
