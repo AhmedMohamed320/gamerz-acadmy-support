@@ -122,6 +122,12 @@ export default function QuestionModal({
             </div>
         ));
 
+    const calculateHeight = () => {
+        const baseHeight = 100; // 100vh
+        const extraHeight = 25 * (history.length + 1); // 25rem لكل كارت
+        return `${baseHeight + extraHeight}vh`;
+    };
+
     return (
         <div className="relative z-10">
             <img src="/Sayjn.gif" alt="" className="headerImg" />

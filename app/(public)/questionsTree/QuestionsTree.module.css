@@ -4,9 +4,9 @@
     align-items: center;
     justify-content: center;
     gap: 4rem;
-    padding-top: 2rem;
+    padding-top: 8rem;
     position: relative;
-    min-height: 300vh;
+    min-height: 100vh;
     overflow-y: auto;
 }
 
@@ -22,7 +22,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 3rem;
-    transition: all 0.3s ease-in;
+    transition: opacity 0.4s ease-in-out, max-width 0.3s ease-in-out,
+        min-height 0.3s ease-in-out, font-size 0.1s ease-in;
     position: relative;
     opacity: 0.5;
     background: #1e1e1e;
@@ -43,6 +44,7 @@
     max-width: 48rem;
     min-height: 18rem;
     font-size: 2.25rem;
+    margin-bottom: calc(50vh - 9rem);
 }
 
 .card.active > div > div > p {
