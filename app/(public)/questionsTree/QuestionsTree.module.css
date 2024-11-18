@@ -7,7 +7,7 @@
     padding-top: 8rem; 
     margin-bottom: calc(50vh - 9rem);
     position: relative;
-    min-height: 100vh;
+    min-height: 80vh;
     overflow-y: auto;
 }
 
