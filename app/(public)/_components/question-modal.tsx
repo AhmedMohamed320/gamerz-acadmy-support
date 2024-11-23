@@ -104,9 +104,6 @@ export default function QuestionModal({
                             )}
                     </p>
                 )}
-                {item.type === "img" && (
-                    <img src={item.value} alt="Answer" className="rounded-lg" />
-                )}
                 {item.type === "link" && (
                     <button>
                         <a
@@ -121,12 +118,6 @@ export default function QuestionModal({
                 )}
             </div>
         ));
-
-    const calculateHeight = () => {
-        const baseHeight = 100; // 100vh
-        const extraHeight = 25 * (history.length + 1); // 25rem لكل كارت
-        return `${baseHeight + extraHeight}vh`;
-    };
 
     return (
         <div className="relative z-10">
@@ -172,7 +163,7 @@ export default function QuestionModal({
                                                     node.id!
                                                 )
                                             }
-                                            className={`col-span-1 relative ${
+                                            className={`col-span-1 flex flex-col gap-2 justify-center items-center relative ${
                                                 selectedOptions[node.id!] ===
                                                 child.id
                                                     ? styles.selectedOption
@@ -185,7 +176,24 @@ export default function QuestionModal({
                                                     <LuCheckCircle className="w-6" />
                                                 </div>
                                             )}
-                                            {child.label}
+
+                                            {child.answer &&
+                                                child.answer.length > 0 &&
+                                                child.answer[0].type ==
+                                                    "img" && (
+                                                    <div className={styles.imgButton}>
+                                                        <img
+                                                            src={
+                                                                child.answer[0]
+                                                                    .value
+                                                            }
+                                                            alt="Answer"
+                                                            className="rounded-lg w-16"
+                                                        />
+                                                    </div>
+                                                )}
+
+                                            <p>{child.label}</p>
                                         </button>
                                     ))}
                                 </div>
