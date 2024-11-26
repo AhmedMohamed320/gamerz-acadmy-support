@@ -2,12 +2,13 @@
 "use client"
 import { useSearchParams } from "next/navigation"; // Using Next.js built-in hook for query params
 import QuestionModal from "../_components/question-modal";
+import { QuestionNode } from "../../types"; 
 
 export default function QuestionsTree() {
     const searchParams = useSearchParams();
     const questions = searchParams.get("questions");
     
-    const parsedQuestions: [] = questions
+    const parsedQuestions: QuestionNode[] = questions
         ? JSON.parse(questions)
         : [];
 
