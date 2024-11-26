@@ -1,35 +1,21 @@
-import prisma from "@/lib/prisma";
+// app/questionsTree/page.tsx
+"use client"
+import { useSearchParams } from "next/navigation"; // Using Next.js built-in hook for query params
 import QuestionModal from "../_components/question-modal";
+import { QuestionNode } from "../page"; // Reuse type from the Home page
 
-export const revalidate = 0;
-interface AnswerItem {
-    id: string;
-    type: "text" | "img" | "link";
-    value: string;
-    pageId?: string;
-}
-
-interface QuestionNode {
-    id: string;
-    title: string;
-    answer?: AnswerItem[];
-    children?: QuestionNode[];
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-export default async function Page() {
-    const questions = await prisma.question.findMany();
-    const formattedQuestions = questions.map((question) => ({
-        ...question,
-        answer: question.answer as unknown as AnswerItem[],
-        children: (question.children as unknown as QuestionNode[]) || [],
-    }));
+export default function QuestionsTree() {
+    const searchParams = useSearchParams();
+    const questions = searchParams.get("questions");
+    
+    const parsedQuestions: QuestionNode[] = questions
+        ? JSON.parse(questions)
+        : [];
 
     return (
         <main>
             <div>
-                {formattedQuestions.map((question) => (
+                {parsedQuestions.map((question) => (
                     <QuestionModal key={question.id} question={question} />
                 ))}
             </div>
