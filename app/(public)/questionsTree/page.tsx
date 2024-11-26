@@ -1,23 +1,29 @@
-// app/questionsTree/page.tsx
-"use client"
-import { useSearchParams } from "next/navigation"; // Using Next.js built-in hook for query params
+"use client"; // لضمان أن الكود يعمل فقط على العميل
+
+import { useEffect, useState } from "react";
+import { QuestionNode } from "../../types";
 import QuestionModal from "../_components/question-modal";
-import { QuestionNode } from "../../types"; 
 
 export default function QuestionsTree() {
-    const searchParams = useSearchParams();
-    const questions = searchParams.get("questions");
-    
-    const parsedQuestions: QuestionNode[] = questions
-        ? JSON.parse(questions)
-        : [];
+    const [questions, setQuestions] = useState<QuestionNode[]>([]);
+
+    useEffect(() => {
+        const storedQuestions = localStorage.getItem("questions");
+        if (storedQuestions) {
+            setQuestions(JSON.parse(storedQuestions));
+        }
+    }, []);
 
     return (
         <main>
             <div>
-                {parsedQuestions.map((question) => (
-                    <QuestionModal key={question.id} question={question} />
-                ))}
+                {questions.length > 0 ? (
+                    questions.map((question) => (
+                        <QuestionModal key={question.id} question={question} />
+                    ))
+                ) : (
+                    <p>لا توجد أسئلة حالياً.</p>
+                )}
             </div>
         </main>
     );
