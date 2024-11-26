@@ -129,7 +129,7 @@ export default function QuestionModal({
                         ref={index === history.length ? activeCardRef : null}
                         className={`${styles.card} ${
                             index === history.length ? styles.active : ""
-                        } text-custom-light `}
+                        } bg-gray-100 dark:bg-custom-dark-2`}
                         onClick={() =>
                             index < history.length && handleBackToNode(index)
                         }
