@@ -12,11 +12,10 @@ interface HomeClientProps {
 export default function HomeClient({ initialQuestions }: HomeClientProps) {
     useEffect(() => {
         if (typeof window !== "undefined") {
+            localStorage.removeItem("questions");
             localStorage.setItem("questions", JSON.stringify(initialQuestions));
-            
         }
     }, [initialQuestions]);
-
 
     return (
         <main>
