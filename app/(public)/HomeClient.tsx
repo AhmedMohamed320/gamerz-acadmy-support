@@ -1,6 +1,5 @@
 'use client'
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoIosArrowDown } from "react-icons/io";
 import { AnswerItem, QuestionNode } from "../types";
@@ -10,10 +9,13 @@ interface HomeClientProps {
 }
 
 export default function HomeClient({ initialQuestions }: HomeClientProps) {
+    const [questions, setQuestions] = useState<(QuestionNode & { answer: AnswerItem[] })[]>([]);
+
     useEffect(() => {
         if (typeof window !== "undefined") {
             localStorage.removeItem("questions");
             localStorage.setItem("questions", JSON.stringify(initialQuestions));
+            setQuestions(initialQuestions);
         }
     }, [initialQuestions]);
 
