@@ -13,8 +13,10 @@ export default function HomeClient({ initialQuestions }: HomeClientProps) {
     useEffect(() => {
         if (typeof window !== "undefined") {
             localStorage.setItem("questions", JSON.stringify(initialQuestions));
+            
         }
     }, [initialQuestions]);
+
 
     return (
         <main>
