@@ -5,11 +5,8 @@ import { Toaster } from "react-hot-toast";
 import Nav from "./(public)/_components/nav";
 
 export const metadata: Metadata = {
-    title: "gamerz-academy",
+    title: "Support",
     description: "gamerz academy support page",
-    icons: {
-        icon: "/gamers-academy.png", 
-    },
 };
 
 
