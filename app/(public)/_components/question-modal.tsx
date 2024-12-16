@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { TiArrowUpThick } from "react-icons/ti";
 import { useDisclosure } from "@nextui-org/modal";
-import styles from "../questionsTree/QuestionsTree.module.css";
+import styles from "../start/QuestionsTree.module.css";
 import { TbExternalLink } from "react-icons/tb";
 import { LuCheckCircle } from "react-icons/lu";
 

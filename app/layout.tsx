@@ -7,7 +7,11 @@ import Nav from "./(public)/_components/nav";
 export const metadata: Metadata = {
     title: "gamerz-academy",
     description: "gamerz academy support page",
+    icons: {
+        icon: "/gamers-academy.png", 
+    },
 };
+
 
 export default function RootLayout({
     children,

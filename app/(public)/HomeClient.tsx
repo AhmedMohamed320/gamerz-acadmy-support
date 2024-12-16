@@ -33,10 +33,10 @@ export default function HomeClient({ initialQuestions }: HomeClientProps) {
                         </p>
 
                         <Link
-                            href="/questionsTree"
+                            href="/start"
                             className="text-3xl font-medium flex flex-col items-center justify-center p-4 px-8 cursor-pointer rounded-lg startButton"
                         >
-                            <p>ابدأ الآن.</p>
+                            <p>ابدأ الآن</p>
                             <IoIosArrowDown />
                         </Link>
                     </div>

@@ -18,14 +18,13 @@ export default function Nav() {
         <>
             <div className="fixed top-0 left-0 w-full z-50 flex justify-center items-center p-5 dark:bg-custom-dark bg-custom-light">
                 <Link href="/">
-                    <img src="/gamers-academy-dark.png" alt="gamers-academy-logo" className="block dark:hidden" width={50}/>
-                    <img src="/gamers-academy.png" alt="gamers-academy-logo" className="hidden dark:block" width={50}/>
+                    <img src="/gamers-academy.png" alt="gamers-academy-logo"  width={60}/>
                 </Link>
                 <button
                     onClick={() =>
                         setTheme(theme === "dark" ? "light" : "dark")
                     }
-                    className="p-2 flex justify-center items-center bg-custom-dark dark:bg-custom-light text-custom-light dark:text-custom-dark rounded-lg absolute left-6 text-3xl w-12 h-12"
+                    className="p-2 flex justify-center items-center  dark:text-custom-light text-custom-dark rounded-lg absolute left-6 text-4xl w-12 h-12"
                 >
                     {theme === "dark" ? <MdOutlineLightMode/> : <MdDarkMode />}
                 </button>
