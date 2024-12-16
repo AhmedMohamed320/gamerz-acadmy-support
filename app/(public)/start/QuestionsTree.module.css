@@ -63,9 +63,14 @@
     pointer-events: all;
     cursor: pointer;
     font-size: 1.65rem;
+    transition: 0.2s ease;
 }
 
-.card button:hover,
+.card.active div button:hover{
+    transform: scale(1.01);
+}
+
+
 .card button.selectedOption {
     background-image:none;
     background-color: #181818c0;
