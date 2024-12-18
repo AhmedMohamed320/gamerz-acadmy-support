@@ -153,7 +153,7 @@ export default function QuestionModal({
                         </div>
                         {node.children && node.children.length > 0 && (
                             <div className="w-full">
-                                <div className="grid grid-cols-2 gap-2">
+                                <div className="grid grid-cols-2 gap-4">
                                     {node.children.map((child) => (
                                         <button
                                             key={child.id}
@@ -163,7 +163,7 @@ export default function QuestionModal({
                                                     node.id!
                                                 )
                                             }
-                                            className={`col-span-1 flex flex-col gap-2 justify-center items-center relative ${
+                                            className={`col-span-1 flex flex-col gap-1 justify-center items-center relative ${
                                                 selectedOptions[node.id!] ===
                                                 child.id
                                                     ? styles.selectedOption

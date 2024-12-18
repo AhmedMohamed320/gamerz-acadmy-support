@@ -67,7 +67,8 @@
 }
 
 .card.active div button:hover{
-    transform: scale(1.01);
+    transform: scale(1.04);
+    background-image: linear-gradient(90deg,var(--color-main),var(--color-main));
 }
 
 
@@ -96,11 +97,8 @@
 }
 
 .imgButton {
-    box-shadow: rgba(0, 0, 0, 0.20) 0px 5px 15px;
-    background-color: #1818187e !important;
     width: 5rem;
-    height: 4.5rem;
-    border-radius: 0.5rem;
+    height: 5rem;
     display: flex;
     align-items: center;
     justify-content: center;
