@@ -14,10 +14,12 @@ export const createPage = async (options: {
   try {
     const page = await prisma.page.create(options);
     revalidatePath("/admin");
+    revalidatePath("/");
     return page;
   } catch (error) {
     console.error(error);
     revalidatePath("/admin");
+    revalidatePath("/");
   }
 };
 
@@ -28,10 +30,12 @@ export const updatePage = async (options: {
   try {
     const page = await prisma.page.update(options);
     revalidatePath("/admin");
+    revalidatePath("/");
     return page;
   } catch (error) {
     console.error(error);
     revalidatePath("/admin");
+    revalidatePath("/");
   }
 };
 
@@ -41,9 +45,11 @@ export const deletePage = async (options: {
   try {
     const deletedPage = await prisma.page.delete(options);
     revalidatePath("/admin");
+    revalidatePath("/");
     return deletedPage;
   } catch (error) {
     console.error("Error deleting page:", error);
     revalidatePath("/admin");
+    revalidatePath("/");
   }
 };
