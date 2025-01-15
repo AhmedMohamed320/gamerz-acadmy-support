@@ -13,6 +13,7 @@ export default function HomeClient({ initialQuestions }: HomeClientProps) {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
+            console.log("initialQuestions", initialQuestions);
             localStorage.removeItem("questions");
             localStorage.setItem("questions", JSON.stringify(initialQuestions));
             setQuestions(initialQuestions);
