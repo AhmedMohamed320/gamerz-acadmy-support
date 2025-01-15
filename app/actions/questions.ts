@@ -13,11 +13,11 @@ export const createQuestion = async (options: {
 }) => {
   try {
     const question = await prisma.question.create(options);
-    revalidatePath("/dashboard");
+    revalidatePath("/admin");
     return question;
   } catch (error) {
     console.error(error);
-    revalidatePath("/dashboard");
+    revalidatePath("/admin");
   }
 };
 
@@ -31,11 +31,11 @@ export const updateQuestion = async (options: {
 }) => {
   try {
     const question = await prisma.question.update(options);
-    revalidatePath("/dashboard");
+    revalidatePath("/admin");
     return question;
   } catch (error) {
     console.error(error);
-    revalidatePath("/dashboard");
+    revalidatePath("/admin");
   }
 };
 
@@ -44,11 +44,11 @@ export const deleteQuestion = async (options: {
 }) => {
   try {
     const question = await prisma.question.delete(options);
-    revalidatePath("/dashboard");
+    revalidatePath("/admin");
     return question;
   } catch (error) {
     console.error(error);
-    revalidatePath("/dashboard");
+    revalidatePath("/admin");
   }
 };
 

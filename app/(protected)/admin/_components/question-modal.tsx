@@ -43,7 +43,7 @@ export default function QuestionModal({
         answer: question?.answer || "",
         children: question?.children || [],
       };
-      console.log({ data });
+      // console.log({ data });
       question_
         ? await updateQuestion({ where: { id: question_.id }, data })
         : await createQuestion({ data });
@@ -59,18 +59,18 @@ export default function QuestionModal({
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      if (!question_) return;
-      setIsDeleting(true);
-      await deleteQuestion({ where: { id: question_.id } });
-      toast.success("Question deleted successfully");
-      onOpenChange();
-      setIsDeleting(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleDelete = async () => {
+  //   try {
+  //     if (!question_) return;
+  //     setIsDeleting(true);
+  //     await deleteQuestion({ where: { id: question_.id } });
+  //     toast.success("Question deleted successfully");
+  //     onOpenChange();
+  //     setIsDeleting(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
     <>
       <Button
