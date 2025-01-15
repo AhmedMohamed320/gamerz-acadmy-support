@@ -102,19 +102,7 @@ export default function QuestionModal({
                   pages={pages}
                 />
               </ModalBody>
-              <ModalFooter className="justify-between">
-                {question_ ? (
-                  <Button
-                    color="danger"
-                    variant="solid"
-                    onPress={handleDelete}
-                    isLoading={isDeleting}
-                  >
-                    Delete
-                  </Button>
-                ) : (
-                  <div></div>
-                )}
+              <ModalFooter className="justify-end">
                 <div className="flex">
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancel

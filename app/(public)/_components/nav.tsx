@@ -28,6 +28,7 @@ export default function Nav() {
                 >
                     {theme === "dark" ? <MdOutlineLightMode/> : <MdDarkMode />}
                 </button>
+
             </div>
         </>
     );
