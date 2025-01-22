@@ -105,6 +105,15 @@
     
 }
 
+.customButton{
+    background-color: var(--color-main);
+    padding: 0.7rem 3rem;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    color: rgb(245, 244, 244);
+}
+
 @keyframes glow {
     0% {
         text-shadow: 0 0 5px var(--color-main), 0 0 10px var(--color-main),

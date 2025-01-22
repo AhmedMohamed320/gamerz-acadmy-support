@@ -41,6 +41,50 @@ export default function QuestionModal({
     }>({});
     const activeCardRef = useRef<HTMLDivElement>(null);
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [showModal, setShowModal] = useState(false); // State for the modal
+    const [timeRemaining, setTimeRemaining] = useState<number>(0); // State for the remaining time
+
+    // Function to check if the current time is outside of 9 AM to 9 PM
+    const isOutsideBusinessHours = () => {
+        const now = new Date();
+        const hours = now.getHours();
+        return hours < 9 || hours >= 21;
+    };
+
+    // Function to calculate the remaining time until the next available time (9 AM or 9 PM)
+    const calculateRemainingTime = () => {
+        const now = new Date();
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+        const currentSeconds = now.getSeconds();
+
+        let nextAvailableTime = new Date(now);
+        if (currentHours < 9) {
+            // Next 9 AM
+            nextAvailableTime.setHours(9, 0, 0, 0);
+        } else if (currentHours >= 9 && currentHours < 21) {
+            // Next 9 PM
+            nextAvailableTime.setHours(21, 0, 0, 0);
+        } else {
+            // Next 9 AM (next day)
+            nextAvailableTime.setDate(now.getDate() + 1);
+            nextAvailableTime.setHours(9, 0, 0, 0);
+        }
+
+        return nextAvailableTime.getTime() - now.getTime();
+    };
+
+    // Function to start the countdown timer
+    const startCountdown = () => {
+        const interval = setInterval(() => {
+            const remainingTime = calculateRemainingTime();
+            setTimeRemaining(remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    };
 
     const handleChildClick = (child: QuestionNode, questionId: string) => {
         setSelectedOptions((prev) => ({
@@ -88,12 +132,19 @@ export default function QuestionModal({
                                 /https?:\/\/[^\s]+/.test(part) ? (
                                     <div
                                         key={index}
-                                        className="text-blue-500 underline mx-1"
+                                        className="mx-1 text-blue-500 underline"
                                     >
                                         <a
                                             href={part}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            onClick={(e) => {
+                                                if (isOutsideBusinessHours()) {
+                                                    e.preventDefault(); // Prevent redirect
+                                                    setShowModal(true); // Show the modal
+                                                    startCountdown(); // Start the countdown
+                                                }
+                                            }}
                                         >
                                             من هنا
                                         </a>
@@ -118,6 +169,18 @@ export default function QuestionModal({
                 )}
             </div>
         ));
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    // Convert the remaining time from milliseconds to a readable format
+    const formatRemainingTime = (timeInMs: number) => {
+        const hours = Math.floor(timeInMs / 1000 / 60 / 60);
+        const minutes = Math.floor((timeInMs / 1000 / 60) % 60);
+        const seconds = Math.floor((timeInMs / 1000) % 60);
+        return `${hours}   ساعة : ${minutes} دقيقة : ${seconds} ثانية`;
+    };
 
     return (
         <div className="relative z-10">
@@ -144,11 +207,11 @@ export default function QuestionModal({
                                 <TiArrowUpThick />
                             </div>
                         )}
-                        <p className="leading-loose font-medium">
+                        <p className="font-medium leading-loose">
                             {node.title || node.label}
                         </p>
 
-                        <div className="flex flex-col text-center gap-4">
+                        <div className="flex flex-col gap-4 text-center">
                             {renderAnswerItems(node.answer)}
                         </div>
                         {node.children && node.children.length > 0 && (
@@ -172,15 +235,14 @@ export default function QuestionModal({
                                         >
                                             {selectedOptions[node.id!] ===
                                                 child.id && (
-                                                <div className="absolute left-2 top-2 text-white ">
+                                                <div className="absolute text-white left-2 top-2 ">
                                                     <LuCheckCircle className="w-6" />
                                                 </div>
                                             )}
 
                                             {child.answer &&
                                                 child.answer.length > 0 &&
-                                                child.answer[0].type ==
-                                                    "img" && (
+                                                child.answer[0].type == "img" && (
                                                     <div className={styles.imgButton}>
                                                         <img
                                                             src={
@@ -188,7 +250,7 @@ export default function QuestionModal({
                                                                     .value
                                                             }
                                                             alt="Answer"
-                                                            className="rounded-lg w-16"
+                                                            className="w-16 rounded-lg"
                                                         />
                                                     </div>
                                                 )}
@@ -202,6 +264,29 @@ export default function QuestionModal({
                     </div>
                 ))}
             </div>
+
+            {/* Modal to inform the user */}
+            {showModal && (
+                <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-90">
+                    <div className="flex flex-col items-center justify-center w-full max-w-2xl gap-8 p-8 text-center bg-white rounded-lg dark:bg-custom-dark-2">
+                        <h2 className="text-4xl ">
+                            لا يمكن الاتصال بخدمة العملاء الآن
+                        </h2>
+                        <p className="text-2xl font-medium ">
+                            يمكنك الاتصال بعد الساعة 9 صباحًا وحتى الساعة 9 مساءً.
+                        </p>
+                        <p className="mt-4 text-2xl leading-relaxed">
+                            الوقت المتبقي للاتصال: <br/>{formatRemainingTime(timeRemaining)}
+                        </p>
+                        <button
+                            onClick={handleCloseModal}
+                            className={styles.customButton}
+                        >
+                            حسنًا
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
