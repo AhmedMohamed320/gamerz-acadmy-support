@@ -115,14 +115,6 @@
     justify-content: center;
 }
 
-.customButton {
-    background-color: var(--color-main);
-    padding: 0.7rem 3rem;
-    font-size: 1.3rem;
-    border-radius: 0.5rem;
-    width: fit-content;
-    color: rgb(245, 244, 244);
-}
 
 @keyframes glow {
     0% {

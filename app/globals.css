@@ -165,6 +165,7 @@
 :root {
     --color-main: #8a11be;
     --color-dark: #111216;
+    --color-light-1:#f9f9f9;
 }
 
 * {
@@ -182,9 +183,7 @@ body {
     overflow-y: auto;
 }
 
-body{
-
-
+body {
 }
 
 a {
@@ -197,7 +196,6 @@ a {
     margin: auto;
 }
 
-
 .headerImg {
     position: fixed;
     z-index: -2;
@@ -205,7 +203,6 @@ a {
     top: 0;
     width: 100vw;
 }
-
 
 ::-webkit-scrollbar {
     width: 5px;
@@ -224,15 +221,107 @@ a {
 .uppderHero > div:nth-of-type(2) {
     height: 100vh;
 }
-.wordSpace{
+.wordSpace {
     word-spacing: 1rem;
 }
 
-.startButton{
+.startButton {
     background-color: var(--color-main);
     color: #e0e0e0 !important;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
 }
+
+/* MySection.css */
+
+.parentOfListSection {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: var();
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.parentOfListSection:hover {
+    background-color: #f1f1f1;
+}
+
+.parentOfListSection p {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.parentOfListSection ul {
+    list-style-type: none;
+    max-height: 0; 
+    overflow: hidden; 
+    transition: max-height 0.5s ease-out; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.parentOfListSection ul.visible {
+    max-height: 200px; 
+    margin-top: 1rem;
+}
+
+.parentOfListSection ul li {
+    padding: 1rem;
+    color: #3f3f3f;
+    transition: background-color 0.3s ease;
+    background-color: var(--color-light-1);
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.parentOfListSection ul li:hover {
+    background-color: #d3d2d2;
+}
+
+.parentOfListSection:nth-child(1) {
+    background: linear-gradient(
+        135deg,
+        #2c3e50,
+        #3498db
+    ); /* أزرق داكن إلى أزرق فاتح */
+}
+
+.parentOfListSection:nth-child(2) {
+    background: linear-gradient(
+        45deg,
+        #34495e,
+        #1abc9c
+    ); /* أزرق رمادي إلى فيروزي */
+}
+
+.parentOfListSection:nth-child(3) {
+    background: linear-gradient(
+        135deg,
+        #2c3e50,
+        #3498db
+    ); /* أزرق داكن إلى أزرق فاتح */
+}
+
+.parentOfListSection:nth-child(4) {
+    background: linear-gradient(
+        45deg,
+        #34495e,
+        #1abc9c
+    ); /* أزرق داكن جدًا إلى أزرق فاتح */
+}
+
+.customButton {
+    background-color: var(--color-main);
+    padding: 0.7rem 3rem;
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    color: rgb(245, 244, 244);
+    cursor: pointer;
+}
+
 
 @media (max-width: 768px) {
     html {

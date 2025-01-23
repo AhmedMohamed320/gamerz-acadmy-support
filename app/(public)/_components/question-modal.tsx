@@ -6,6 +6,7 @@ import { useDisclosure } from "@nextui-org/modal";
 import styles from "../start/QuestionsTree.module.css";
 import { TbExternalLink } from "react-icons/tb";
 import { LuCheckCircle } from "react-icons/lu";
+import MySection from "./mySection";
 
 interface AnswerItem {
     id: string;
@@ -44,14 +45,14 @@ export default function QuestionModal({
     const [showModal, setShowModal] = useState(false); // State for the modal
     const [timeRemaining, setTimeRemaining] = useState<number>(0); // State for the remaining time
 
-    // Function to check if the current time is outside of 9 AM to 9 PM
+    // Function to check if the current time is outside of 3 PM to 9 PM
     const isOutsideBusinessHours = () => {
         const now = new Date();
         const hours = now.getHours();
-        return hours < 9 || hours >= 21;
+        return hours < 15 || hours >= 21;
     };
 
-    // Function to calculate the remaining time until the next available time (9 AM or 9 PM)
+    // Function to calculate the remaining time until the next available time (3 PM or 9 PM)
     const calculateRemainingTime = () => {
         const now = new Date();
         const currentHours = now.getHours();
@@ -73,6 +74,7 @@ export default function QuestionModal({
 
         return nextAvailableTime.getTime() - now.getTime();
     };
+
     // Function to start the countdown timer
     const startCountdown = () => {
         const interval = setInterval(() => {
@@ -120,8 +122,8 @@ export default function QuestionModal({
         resetScrollToActiveCard();
     }, [currentNode]);
 
-    const renderAnswerItems = (answerItems?: AnswerItem[]) =>
-        answerItems?.map((item) => (
+    const renderAnswerItems = (answerItems?: AnswerItem[]) => {
+        return answerItems?.map((item) => (
             <div key={item.id} className={`px-6 ${styles.titleDiv}`}>
                 {item.type === "text" && (
                     <>
@@ -154,16 +156,23 @@ export default function QuestionModal({
                                         من هنا
                                     </a>
                                 ) : (
-                                    <p
-                                        key={index}
-                                        className={`leading-normal ${
-                                            index === 0
-                                                ? "font-medium leading-loose"
-                                                : ""
-                                        }`}
-                                    >
-                                        {part}
-                                    </p>
+                                    <div key={index}>
+                                        {part.includes("mySections") ? (
+                                            <MySection
+                                              
+                                            />
+                                        ) : (
+                                            <p
+                                                className={`leading-normal ${
+                                                    index === 0
+                                                        ? "font-medium leading-loose"
+                                                        : ""
+                                                }`}
+                                            >
+                                                {part.trim()}
+                                            </p>
+                                        )}
+                                    </div>
                                 )
                             )}
                     </>
@@ -182,6 +191,7 @@ export default function QuestionModal({
                 )}
             </div>
         ));
+    };
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -192,7 +202,7 @@ export default function QuestionModal({
         const hours = Math.floor(timeInMs / 1000 / 60 / 60);
         const minutes = Math.floor((timeInMs / 1000 / 60) % 60);
         const seconds = Math.floor((timeInMs / 1000) % 60);
-        return `${hours}   ساعة : ${minutes} دقيقة : ${seconds} ثانية`;
+        return `${hours} ساعة : ${minutes} دقيقة : ${seconds} ثانية`;
     };
 
     return (
@@ -298,7 +308,7 @@ export default function QuestionModal({
                         </p>
                         <button
                             onClick={handleCloseModal}
-                            className={styles.customButton}
+                            className="customButton font-xl"
                         >
                             حسنًا
                         </button>
