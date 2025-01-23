@@ -112,13 +112,13 @@ const MySection = () => {
                         ref={popupRef}
                         className="flex flex-col items-center justify-center w-full max-w-xl gap-6 p-8 text-center bg-white rounded-lg dark:bg-custom-dark-2"
                     >
-                        <h2 className="text-2xl font-semibold ">
+                        <h2 className="text-3xl font-semibold ">
                             تواصل معانا لحل مشكلتك بخصوص:
                         </h2>
-                        <p className="text-xl ">{selectedProduct}</p>
+                        <p className="text-2xl ">{selectedProduct}</p>
                         <div
                             onClick={handleWhatsAppClick}
-                            className="customButton text-base"
+                            className="customButton"
                         >
                             تواصل عبر واتساب 
                         </div>

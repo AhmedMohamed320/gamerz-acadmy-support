@@ -165,7 +165,7 @@
 :root {
     --color-main: #8a11be;
     --color-dark: #111216;
-    --color-light-1:#f9f9f9;
+    --color-light:#f9f9f9;
 }
 
 * {
@@ -183,8 +183,6 @@ body {
     overflow-y: auto;
 }
 
-body {
-}
 
 a {
     text-decoration: none;
@@ -270,7 +268,7 @@ a {
     padding: 1rem;
     color: #3f3f3f;
     transition: background-color 0.3s ease;
-    background-color: var(--color-light-1);
+    background-color: var(--color-light);
     border-radius: 0.5rem;
     font-size: 1.4rem;
     font-weight: 400;
