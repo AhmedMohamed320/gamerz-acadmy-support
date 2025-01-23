@@ -28,23 +28,26 @@
     position: relative;
     opacity: 0.6;
     box-shadow: rgba(34, 34, 34, 0.05) 0px 1px 2px 0px;
-    font-size: 1.85rem;
 }
-
-.card > div > div > p {
-    font-size: 1.25rem !important;
-}
-
-
 .card.active {
     opacity: 1;
     max-width: 48rem;
     min-height: 18rem;
-    font-size: 2.25rem;
+}
+.card .titleDiv {
+    font-size: 1.25rem;
 }
 
-.card.active > div > div > p {
+.card.active .titleDiv {
+    font-size: 1.5rem;
+}
+
+.card .titleDiv:first-of-type {
     font-size: 1.5rem !important;
+}
+
+.card.active .titleDiv:first-of-type {
+    font-size: 2rem !important;
 }
 
 .card div button {
@@ -56,7 +59,12 @@
     cursor: not-allowed;
     color: #e4e2e2;
     transition: 0.5s ease;
-    background-image: linear-gradient(90deg,var(--color-main),var(--color-main),#660c8d);
+    background-image: linear-gradient(
+        90deg,
+        var(--color-main),
+        var(--color-main),
+        #660c8d
+    );
 }
 
 .card.active div button {
@@ -66,14 +74,17 @@
     transition: 0.2s ease;
 }
 
-.card.active div button:hover{
-    transform: scale(1.04);
-    background-image: linear-gradient(90deg,var(--color-main),var(--color-main));
+.card.active div button:hover {
+    transform: translateY(-4px);
+    background-image: linear-gradient(
+        90deg,
+        var(--color-main),
+        var(--color-main)
+    );
 }
 
-
 .card button.selectedOption {
-    background-image:none;
+    background-image: none;
     background-color: #181818c0;
     color: #fff;
 }
@@ -102,10 +113,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
 }
 
-.customButton{
+.customButton {
     background-color: var(--color-main);
     padding: 0.7rem 3rem;
     font-size: 1.3rem;

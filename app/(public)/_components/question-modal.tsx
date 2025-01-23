@@ -59,21 +59,20 @@ export default function QuestionModal({
         const currentSeconds = now.getSeconds();
 
         let nextAvailableTime = new Date(now);
-        if (currentHours < 9) {
-            // Next 9 AM
-            nextAvailableTime.setHours(9, 0, 0, 0);
-        } else if (currentHours >= 9 && currentHours < 21) {
-            // Next 9 PM
+        if (currentHours < 15) {
+            // Next 3 PM (15:00)
+            nextAvailableTime.setHours(15, 0, 0, 0);
+        } else if (currentHours >= 15 && currentHours < 21) {
+            // Between 3 PM and 9 PM
             nextAvailableTime.setHours(21, 0, 0, 0);
         } else {
-            // Next 9 AM (next day)
+            // After 9 PM, set to next day 3 PM
             nextAvailableTime.setDate(now.getDate() + 1);
-            nextAvailableTime.setHours(9, 0, 0, 0);
+            nextAvailableTime.setHours(15, 0, 0, 0);
         }
 
         return nextAvailableTime.getTime() - now.getTime();
     };
-
     // Function to start the countdown timer
     const startCountdown = () => {
         const interval = setInterval(() => {
@@ -123,37 +122,51 @@ export default function QuestionModal({
 
     const renderAnswerItems = (answerItems?: AnswerItem[]) =>
         answerItems?.map((item) => (
-            <div key={item.id} className="px-6">
+            <div key={item.id} className={`px-6 ${styles.titleDiv}`}>
                 {item.type === "text" && (
-                    <p className={`leading-normal`}>
+                    <>
                         {item.value
                             ?.split(/(https?:\/\/[^\s]+)/g)
                             .map((part, index) =>
                                 /https?:\/\/[^\s]+/.test(part) ? (
-                                    <div
+                                    <a
                                         key={index}
+                                        href={part}
                                         className="mx-1 text-blue-500 underline"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => {
+                                            if (
+                                                !part.includes(
+                                                    "ما%20وصلي%20الطلب"
+                                                )
+                                            ) {
+                                                return; // تجاهل عرض الـ modal وعمل redirect عادي
+                                            } else if (
+                                                isOutsideBusinessHours()
+                                            ) {
+                                                e.preventDefault(); // Prevent redirect
+                                                setShowModal(true); // Show the modal
+                                                startCountdown(); // Start the countdown
+                                            }
+                                        }}
                                     >
-                                        <a
-                                            href={part}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={(e) => {
-                                                if (isOutsideBusinessHours()) {
-                                                    e.preventDefault(); // Prevent redirect
-                                                    setShowModal(true); // Show the modal
-                                                    startCountdown(); // Start the countdown
-                                                }
-                                            }}
-                                        >
-                                            من هنا
-                                        </a>
-                                    </div>
+                                        من هنا
+                                    </a>
                                 ) : (
-                                    part
+                                    <p
+                                        key={index}
+                                        className={`leading-normal ${
+                                            index === 0
+                                                ? "font-medium leading-loose"
+                                                : ""
+                                        }`}
+                                    >
+                                        {part}
+                                    </p>
                                 )
                             )}
-                    </p>
+                    </>
                 )}
                 {item.type === "link" && (
                     <button>
@@ -207,9 +220,9 @@ export default function QuestionModal({
                                 <TiArrowUpThick />
                             </div>
                         )}
-                        <p className="font-medium leading-loose">
+                        {/* <p className="font-medium leading-loose">
                             {node.title || node.label}
-                        </p>
+                        </p> */}
 
                         <div className="flex flex-col gap-4 text-center">
                             {renderAnswerItems(node.answer)}
@@ -242,8 +255,13 @@ export default function QuestionModal({
 
                                             {child.answer &&
                                                 child.answer.length > 0 &&
-                                                child.answer[0].type == "img" && (
-                                                    <div className={styles.imgButton}>
+                                                child.answer[0].type ==
+                                                    "img" && (
+                                                    <div
+                                                        className={
+                                                            styles.imgButton
+                                                        }
+                                                    >
                                                         <img
                                                             src={
                                                                 child.answer[0]
@@ -269,14 +287,14 @@ export default function QuestionModal({
             {showModal && (
                 <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-90">
                     <div className="flex flex-col items-center justify-center w-full max-w-2xl gap-8 p-8 text-center bg-white rounded-lg dark:bg-custom-dark-2">
-                        <h2 className="text-4xl ">
-                            لا يمكن الاتصال بخدمة العملاء الآن
-                        </h2>
+                        <h2 className="text-4xl ">غير متاحين للتواصل الان</h2>
                         <p className="text-2xl font-medium ">
-                            يمكنك الاتصال بعد الساعة 9 صباحًا وحتى الساعة 9 مساءً.
+                            يمكنك التواصل معانا من الساعة 3 عصرا وحتى الساعة 9
+                            مساءً.
                         </p>
                         <p className="mt-4 text-2xl leading-relaxed">
-                            الوقت المتبقي للاتصال: <br/>{formatRemainingTime(timeRemaining)}
+                            سنكون متاحين بعد : <br />
+                            {formatRemainingTime(timeRemaining)}
                         </p>
                         <button
                             onClick={handleCloseModal}
