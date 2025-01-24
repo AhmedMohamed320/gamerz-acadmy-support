@@ -17,9 +17,9 @@ export default function Nav() {
     return (
         <>
             <div className="fixed top-0 left-0 w-full z-50 flex justify-center items-center p-5 dark:bg-custom-dark bg-custom-light">
-                <Link href="/">
+                <a href="https://gastore-sa.com/" target="_blank">
                     <img src="/gamers-academy.png" alt="gamers-academy-logo"  width={60}/>
-                </Link>
+                </a>
                 <button
                     onClick={() =>
                         setTheme(theme === "dark" ? "light" : "dark")

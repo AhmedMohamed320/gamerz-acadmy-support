@@ -165,7 +165,7 @@
 :root {
     --color-main: #8a11be;
     --color-dark: #111216;
-    --color-light:#f9f9f9;
+    --color-light: #f9f9f9;
 }
 
 * {
@@ -182,7 +182,6 @@ body {
     height: 100svh !important;
     overflow-y: auto;
 }
-
 
 a {
     text-decoration: none;
@@ -249,33 +248,77 @@ a {
     font-weight: bold;
 }
 
+.parentOfListSection > div:nth-of-type(1) {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrowIcon {
+    font-size: 2.25rem;
+}
+
 .parentOfListSection ul {
     list-style-type: none;
-    max-height: 0; 
-    overflow: hidden; 
-    transition: max-height 0.5s ease-out; 
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
 .parentOfListSection ul.visible {
-    max-height: 200px; 
-    margin-top: 1rem;
+    max-height: fit-content;
+    margin-top: 2rem;
 }
 
-.parentOfListSection ul li {
+.nestedChild {
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+}
+
+.nestedChild p {
+    font-size: 1.5rem !important;
+    font-weight: 500;
+}
+
+.nestedChild.visible {
+    max-height: fit-content;
+    margin-top: 2rem;
+}
+
+.parentOfListSection ul li,
+.nestedChild div {
     padding: 1rem;
-    color: #3f3f3f;
-    transition: background-color 0.3s ease;
-    background-color: var(--color-light);
+    color: #dddcdc;
+    transition: background-color 0.2s ease;
+    background-color: #111216;
     border-radius: 0.5rem;
     font-size: 1.4rem;
     font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.nestedChild div {
+    background-color: #dddcdc;
+    color: #111216;
+    justify-content: center;
+    padding: 0.3rem;
+    border-radius: 0.25rem;
+    width: 100%;
+}
 .parentOfListSection ul li:hover {
     background-color: #d3d2d2;
+    color: #111216;
+}
+
+.parentOfListSection ul li.exceptionLi:hover {
+    background-color: #111216;
+    color: #dddcdc;
 }
 
 .parentOfListSection:nth-child(1) {
@@ -313,13 +356,12 @@ a {
 .customButton {
     background-color: var(--color-main);
     padding: 0.7rem 3rem;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     border-radius: 0.5rem;
     width: fit-content;
     color: rgb(245, 244, 244);
     cursor: pointer;
 }
-
 
 @media (max-width: 768px) {
     html {
