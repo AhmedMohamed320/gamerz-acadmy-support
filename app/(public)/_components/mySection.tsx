@@ -1,49 +1,35 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
 
 const MySection = () => {
-    const [visibleSection, setVisibleSection] = useState<string | null>(null);
-    const [visibleSection2, setVisibleSection2] = useState<string | null>(null);
-
-    const [selectedProduct, setSelectedProduct] = useState<string | null>(null); // لتخزين المنتج المحدد
-    const [showPopup, setShowPopup] = useState(false); // حالة إظهار الـ popup
-    const popupRef = useRef<HTMLDivElement>(null); // Ref للـ popup
+    const [visibleSections, setVisibleSections] = useState<{
+        [key: string]: boolean;
+    }>({});
+    const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+    const [showPopup, setShowPopup] = useState(false);
+    const popupRef = useRef<HTMLDivElement>(null);
 
     const toggleSection = (section: string) => {
-        if (visibleSection === section) {
-            setVisibleSection(null); // إخفاء القائمة إذا كانت مفتوحة بالفعل
-        } else {
-            setVisibleSection(section); // إظهار القائمة المحددة
-        }
-    };
-    const toggleSection2 = (section: string) => {
-        if (visibleSection2 === section) {
-            setVisibleSection2(null); // إخفاء القائمة إذا كانت مفتوحة بالفعل
-        } else {
-            setVisibleSection2(section); // إظهار القائمة المحددة
-        }
+        setVisibleSections((prev) => ({ ...prev, [section]: !prev[section] }));
     };
 
     const handleProductClick = (product: string) => {
-        setSelectedProduct(product); // تعيين المنتج المحدد
-        setShowPopup(true); // إظهار الـ popup
+        setSelectedProduct(product);
+        setShowPopup(true);
     };
 
-    const handleClosePopup = () => {
-        setShowPopup(false); // إخفاء الـ popup
-    };
+    const handleClosePopup = () => setShowPopup(false);
 
     const handleWhatsAppClick = () => {
         const message = `مرحبًا، أريد المساعدة بخصوص: ${selectedProduct}`;
         const whatsappUrl = `https://wa.me/201280626320?text=${encodeURIComponent(
             message
         )}`;
-        window.open(whatsappUrl, "_blank"); // فتح واتساب في نافذة جديدة
+        window.open(whatsappUrl, "_blank");
     };
 
-    // إغلاق الـ popup عند النقر خارج النافذة
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -54,195 +40,144 @@ const MySection = () => {
             }
         };
 
-        if (showPopup) {
+        if (showPopup)
             document.addEventListener("mousedown", handleClickOutside);
-        }
-
-        return () => {
+        return () =>
             document.removeEventListener("mousedown", handleClickOutside);
-        };
     }, [showPopup]);
+
+    const sections = [
+        {
+            title: "🎮 شحن وخدمات الألعاب 🎮",
+            key: "section1",
+            products: [
+                { name: "فورتنايت" },
+                { name: "قراند" },
+                { name: "اوفرواتش" },
+                { name: "قنشن" },
+                { name: "روبلوكس" },
+                { name: "ليق اوف لجندز" },
+            ],
+        },
+        {
+            title: "🕹️ اشتري العابك 🕹️",
+            key: "section2",
+            products: [{ name: "لعبة ماينكرافت" }],
+        },
+        {
+            title: "📦 اشتري تطبيقاتك 📦",
+            key: "section3",
+            products: [
+                { name: "كاسبرسكي بريميوم" },
+                { name: "ويندوز10 + ويندوز11" },
+                { name: "منتجات اوفيس" },
+                { name: "برامج الحماية" },
+                { name: "ادوبي" },
+                { name: "كانفا" },
+            ],
+        },
+        {
+            title: "🎞️ اشتري اشتراكاتك 🎞️",
+            key: "section4",
+            products: [
+                { name: "نتفلكس" },
+                { name: "شاهد" },
+                {
+                    name: "يوتيوب بريميوم",
+                    children: [{ name: "السعوديه" }, { name: "دوله اخرى" }],
+                },
+                { name: "دسكورد نيترو" },
+                { name: "قيم باس ألتمت" },
+            ],
+        },
+    ];
+
+    const renderProducts = (products: any[]) => {
+        return products.map((product, idx) => (
+            <li
+                key={idx}
+                onClick={(e) =>
+                    !product.children && handleProductClick(product.name)
+                }
+            >
+                <div
+                    className="flex justify-between items-center w-full"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        toggleSection(`nested-${product.name}`);
+                    }}
+                >
+                    {product.name}
+                    {product.children && (
+                        <div className="arrowIcon">
+                            <IoIosArrowDown />
+                        </div>
+                    )}
+                    {!product.children && (
+                        <div className="arrowIcon">
+                            <FaWhatsapp />
+                        </div>
+                    )}
+                </div>
+                {product.children && (
+                    <ul
+                        className={
+                            visibleSections[`nested-${product.name}`]
+                                ? "visible"
+                                : ""
+                        }
+                    >
+                        {product.children.map(
+                            (child: any, childIdx: number) => (
+                                <li
+                                    key={childIdx}
+                                    onClick={(e) => {
+                                        handleProductClick(child.name);
+                                    }}
+                                >
+                                    {child.name}
+                                    <div className="arrowIcon">
+                                        <FaWhatsapp />
+                                    </div>
+                                </li>
+                            )
+                        )}
+                    </ul>
+                )}
+            </li>
+        ));
+    };
 
     return (
         <div className="flex flex-col gap-4 mt-4">
-            {/* الأقسام */}
-            <div className="parentOfListSection">
-                <div onClick={() => toggleSection("section1")}>
-                    <p>🎮 شحن وخدمات الألعاب 🎮</p>
-                    <div className="arrowIcon">
-                        <IoIosArrowDown />
+            {sections.map((section, index) => (
+                <div key={index} className="parentOfListSection">
+                    <div onClick={() => toggleSection(section.key)}>
+                        <p>{section.title}</p>
+                        <div className="arrowIcon">
+                            <IoIosArrowDown />
+                        </div>
                     </div>
+                    <ul
+                        className={
+                            visibleSections[section.key] ? "visible" : ""
+                        }
+                    >
+                        {renderProducts(section.products)}
+                    </ul>
                 </div>
-                <ul className={visibleSection === "section1" ? "visible" : ""}>
-                    {[
-                        "فورتنايت",
-                        "قراند",
-                        "اوفرواتش",
-                        "قنشن",
-                        "روبلوكس",
-                        "ليق اوف لجندز",
-                    ].map((product, index) => (
-                        <li
-                            key={index}
-                            onClick={() => handleProductClick(product)}
-                        >
-                            {product}
-                            <div className="arrowIcon">
-                                <FaWhatsapp />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="parentOfListSection">
-                <div onClick={() => toggleSection("section2")}>
-                    <p>🕹️ اشتري العابك 🕹️</p>
-                    <div className="arrowIcon">
-                        <IoIosArrowDown />
-                    </div>
-                </div>
+            ))}
 
-                <ul className={visibleSection === "section2" ? "visible" : ""}>
-                    {["لعبة ماينكرافت"].map((product, index) => (
-                        <li
-                            key={index}
-                            onClick={() => handleProductClick(product)}
-                        >
-                            {product}
-                            <div className="arrowIcon">
-                                <FaWhatsapp />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="parentOfListSection">
-                <div onClick={() => toggleSection("section3")}>
-                    <p>📦 اشتري تطبيقاتك 📦</p>
-                    <div className="arrowIcon">
-                        <IoIosArrowDown />
-                    </div>
-                </div>
-                <ul className={visibleSection === "section3" ? "visible" : ""}>
-                    {[
-                        "كاسبرسكي بريميوم",
-                        "ويندوز10 + ويندوز11",
-                        "منتجات اوفيس",
-                        "برامج الحماية",
-                        "ادوبي",
-                        "كانفا",
-                    ].map((product, index) => (
-                        <li
-                            key={index}
-                            onClick={() => handleProductClick(product)}
-                        >
-                            {product}
-                            <div className="arrowIcon">
-                                <FaWhatsapp />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="parentOfListSection">
-                <div onClick={() => toggleSection("section4")}>
-                    <p>🎞️ اشتري اشتراكاتك 🎞️</p>
-                    <div className="arrowIcon">
-                        <IoIosArrowDown />
-                    </div>
-                </div>
-                <ul className={visibleSection === "section4" ? "visible" : ""}>
-                    {[
-                        "نتفلكس",
-                        "شاهد",
-                        "يوتيوب بريميوم",
-                        "دسكورد نيترو",
-                        "قيم باس ألتمت",
-                    ].map((product, index) => (
-                        <>
-                            {product === "يوتيوب بريميوم" ? (
-                                <>
-                                    <li
-                                        key={index}
-                                        className="exceptionLi"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            toggleSection2("section4-nested");
-                                        }}
-                                    >
-                                        <div className="w-full">
-                                            <div className="flex justify-between items-center">
-                                                {product}
-                                                <div className="arrowIcon">
-                                                    <IoIosArrowDown />
-                                                </div>
-                                            </div>
-                                            <div
-                                                className={`${
-                                                    visibleSection2 ===
-                                                    "section4-nested"
-                                                        ? "visible"
-                                                        : ""
-                                                } nestedChild overflow-hidden`}
-                                            >
-                                              <p>
-                                                اين تقيم ؟
-                                              </p>
-                                                <section className="flex gap-4 w-full mt-5">
-                                                    <div
-                                                        onClick={() =>
-                                                            handleProductClick(
-                                                                "السعوديه"
-                                                            )
-                                                        }
-                                                    >
-                                                        السعوديه
-                                                    </div>
-                                                    <div
-                                                        onClick={() =>
-                                                            handleProductClick(
-                                                                "دوله اخرى"
-                                                            )
-                                                        }
-                                                    >
-                                                        دوله اخرى
-                                                    </div>
-                                                </section>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li
-                                        key={index}
-                                        onClick={() =>
-                                            handleProductClick(product)
-                                        }
-                                    >
-                                        {product}
-                                        <div className="arrowIcon">
-                                            <FaWhatsapp />
-                                        </div>
-                                    </li>
-                                </>
-                            )}
-                        </>
-                    ))}
-                </ul>
-            </div>
-
-            {/* الـ Popup */}
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50">
                     <div
                         ref={popupRef}
                         className="flex flex-col items-center justify-center w-full max-w-xl gap-6 p-8 text-center bg-white rounded-lg dark:bg-custom-dark-2"
                     >
-                        <h2 className="text-3xl font-semibold ">
+                        <h2 className="text-3xl font-semibold">
                             تواصل معانا لحل مشكلتك بخصوص:
                         </h2>
-                        <p className="text-2xl ">{selectedProduct}</p>
+                        <p className="text-2xl">{selectedProduct}</p>
                         <div
                             onClick={handleWhatsAppClick}
                             className="customButton"

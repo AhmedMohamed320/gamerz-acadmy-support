@@ -134,7 +134,7 @@ export default function QuestionModal({
                                     <a
                                         key={index}
                                         href={part}
-                                        className="mx-1 text-blue-500 underline"
+                                        className="customButton mt-2 mb-2 mx-auto block"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={(e) => {

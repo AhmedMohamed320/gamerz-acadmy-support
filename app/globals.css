@@ -263,14 +263,15 @@ a {
     list-style-type: none;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out;
+    transition: max-height 0.5s ease-out, margin-top 1s ease-out;
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
 }
 
 .parentOfListSection ul.visible {
-    max-height: fit-content;
+    transition: max-height 0.5s ease-out, margin-top 0s ease-out;
+    max-height: 500px;
     margin-top: 2rem;
 }
 
@@ -288,9 +289,13 @@ a {
     max-height: fit-content;
     margin-top: 2rem;
 }
-
+.parentOfListSection > ul.visible > li {
+    display: grid;
+    grid-template-columns: 1fr;
+}
 .parentOfListSection ul li,
 .nestedChild div {
+    width: 100%;
     padding: 1rem;
     color: #dddcdc;
     transition: background-color 0.2s ease;
@@ -299,8 +304,8 @@ a {
     font-size: 1.4rem;
     font-weight: 400;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
 .nestedChild div {
@@ -315,7 +320,10 @@ a {
     background-color: #d3d2d2;
     color: #111216;
 }
-
+.parentOfListSection ul li ul li:hover {
+    background-color: #111216f3;
+    color: #dddcdc;
+}
 .parentOfListSection ul li.exceptionLi:hover {
     background-color: #111216;
     color: #dddcdc;
@@ -323,34 +331,34 @@ a {
 
 .parentOfListSection:nth-child(1) {
     background: linear-gradient(
-        135deg,
-        #2c3e50,
-        #3498db
-    ); /* أزرق داكن إلى أزرق فاتح */
+        45deg,
+        #9b59b6,
+        /* بنفسجي */ #8e44ad /* بنفسجي داكن */
+    );
 }
 
 .parentOfListSection:nth-child(2) {
     background: linear-gradient(
         45deg,
-        #34495e,
-        #1abc9c
-    ); /* أزرق رمادي إلى فيروزي */
+        #e67e22,
+        /* برتقالي */ #d35400 /* برتقالي داكن */
+    );
 }
 
 .parentOfListSection:nth-child(3) {
     background: linear-gradient(
-        135deg,
-        #2c3e50,
-        #3498db
-    ); /* أزرق داكن إلى أزرق فاتح */
+        45deg,
+        #1abc9c,
+        /* أخضر فيروزي */ #16a085 /* أخضر داكن */
+    );
 }
 
 .parentOfListSection:nth-child(4) {
     background: linear-gradient(
         45deg,
-        #34495e,
-        #1abc9c
-    ); /* أزرق داكن جدًا إلى أزرق فاتح */
+        #3498db,
+        /* أزرق فاتح */ #2c3e50 /* أزرق داكن */
+    );
 }
 
 .customButton {
